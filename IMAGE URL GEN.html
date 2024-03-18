@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Drive Thumbnail Generator</title>
+</head>
+<body>
+  <form id="url-input-form">
+    <label for="url-input">Enter Google Drive URL:</label>
+    <input type="text" id="url-input" required>
+    <button type="submit">Generate Thumbnail</button>
+  </form>
+  <div id="output"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlInputForm = document.querySelector('#url-input-form');
+      const urlInput = document.querySelector('#url-input');
+      const output = document.querySelector('#output');
+
+      urlInputForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const url = urlInput.value;
+
+        const id = url.split('/')[5];
+        output.innerHTML = `<img src="https://drive.google.com/thumbnail?sz=w1000&id=${id}" alt="Thumbnail">`;
+      });
+    });
+  </script>
+</body>
+</html>
