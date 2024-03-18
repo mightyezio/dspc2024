@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+<title>Real-Time Clock</title>
+<style>
+    #clock {
+        font-size: 15px;
+        font-weight: bold;
+        color: black;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        text-align: center;
+        color: white;
+        padding-top: 0px;
+        padding-left: 30px;
+        padding-bottom: -20px;
+    }
+
+    .clock-container {
+        width: 120px; /* Fixed typo in width value */
+        overflow: hidden;
+        outline: auto;
+        outline-color: #000000; /* Added missing semicolon */
+        color: #fff;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+</style>
+</head>
+<body>
+<div class="clock-container">
+    <div id="clock"></div>
+</div>
+<script>
+    function updateClock() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        var date = now.toDateString(); // Get current date
+
+        // Pad single digit minutes and seconds with leading zeros
+        minutes = (minutes < 10 ? '0' : '') + minutes;
+        seconds = (seconds < 10 ? '0' : '') + seconds;
+
+        // Format time as HH:MM:SS
+        var timeString = hours + ':' + minutes + ':' + seconds;
+        
+        // Concatenate time and date
+        var dateTimeString = timeString + ' - ' + date;
+
+        // Update the clock element
+        document.getElementById('clock').textContent = dateTimeString;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initial call to display the clock immediately
+    updateClock();
+</script>
+</body>
+</html>
