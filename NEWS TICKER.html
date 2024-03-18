@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+<title>News Ticker Generator</title>
+<style>
+    .news-container {
+        width: 98%;
+        overflow: hidden;
+        background-color: #fff;
+        color: #000;
+        padding-top: 10px;
+    }
+    .news-content {
+        white-space: nowrap;
+        animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(calc(-100% - 50px)); }
+    }
+    .news-item {
+        display: inline-block;
+        padding: 10px;
+        margin-right: 50px;
+        background-color: none;
+        border-radius: 20px;
+        font-family: 'Inter', sans-serif;
+    }
+    body {
+        font-family: 'Inter', sans-serif;
+        font-size: 20px;
+    }
+    #output {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+</style>
+</head>
+<body>
+<h2>News Ticker Generator</h2>
+<form id="newsForm">
+    <label for="newsInput">Enter news items (one per line):</label><br>
+    <textarea id="newsInput" rows="4" cols="50"></textarea><br>
+    <button type="button" onclick="generateNewsTicker()">Generate HTML</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+function generateNewsTicker() {
+    var newsInput = document.getElementById("newsInput").value.trim();
+    var newsItems = newsInput.split('\n').map(function(item) {
+        return item.trim();
+    });
+
+    var output = document.getElementById("output");
+    if (newsItems.length === 0) {
+        output.textContent = "Please enter at least one news item.";
+        return;
+    }
+
+    var html = "<!DOCTYPE html>\n<html lang='en'>\n<head>\n<meta charset='UTF-8'>\n<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inter'>\n<title>News Ticker</title>\n<style>\n.news-container {\nwidth: 98%;\noverflow: hidden;\nbackground-color: #fff;\ncolor: #000;\npadding-top: 10px;\n}\n.news-content {\nwhite-space: nowrap;\nanimation: marquee 30s linear infinite;\n}\n@keyframes marquee {\n0% { transform: translateX(100%); }\n100% { transform: translateX(calc(-100% - 50px)); }\n}\n.news-item {\ndisplay: inline-block;\npadding: 10px;\nmargin-right: 50px;\nbackground-color: none;\nborder-radius: 20px;\nfont-family: 'Inter', sans-serif;\n}\nbody {\nfont-family: 'Inter', sans-serif;\nfont-size: 20px;\n}\n</style>\n</head>\n<body>\n<div class='news-container' class='vignette'>\n<div class='news-content'>\n";
+    
+    // Concatenate the first item again at the end to remove white space between first and last item
+    newsItems.push(newsItems[0]);
+    
+    newsItems.forEach(function(item) {
+        html += "    <div class='news-item'>" + item + "</div>\n";
+    });
+    
+    html += "</div>\n</div>\n</body>\n</html>";
+
+    output.innerHTML = "<h3>Generated HTML:</h3>\n<textarea id='generatedHtml' rows='15' cols='80'>" + html + "</textarea>";
+    // Automatically select the generated HTML code
+    var generatedHtmlTextarea = document.getElementById("generatedHtml");
+    generatedHtmlTextarea.select();
+}
+</script>
+</body>
+</html>
