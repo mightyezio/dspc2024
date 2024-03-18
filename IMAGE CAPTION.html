@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter"/>
+<title>Hover Effect</title>
+<style>
+    .container {
+        position: relative;
+        width: 750px; /* Adjust as per your requirement */
+        height: 850px; /* Adjust as per your requirement */
+        overflow: hidden;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: auto;
+        transition: transform 0.5s ease-in-out; /* Adjust timing for smoother animation */
+    }
+
+    .title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 30px); /* Adjusted width to accommodate increased padding */
+        background-color: rgba(0, 0, 0, 0.7); /* Adjust transparency as needed */
+        color: #fff;
+        padding: 15px; /* Increased padding */
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out; /* Adjust timing for smoother animation */
+        font-family: 'Inter', sans-serif;
+    }
+
+    .container:hover .image {
+        transform: scale(1.2); /* Adjust zoom level as needed */
+    }
+
+    .container:hover .title {
+        opacity: 1;
+    }
+
+    /* Style for input box */
+    #inputBox {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 999; /* Ensure the input box appears above the image */
+    }
+
+    /* Style for the copy button */
+    #copyButton {
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div id="inputBox">
+    <label for="imageURL">Image URL:</label><br>
+    <input type="text" id="imageURL" placeholder="Enter image URL"><br>
+    <label for="boldText">Bold Text:</label><br>
+    <input type="text" id="boldText" placeholder="Enter bold text"><br>
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" placeholder="Enter title"><br><br>
+    <button onclick="setHoverEffect()">Apply Hover Effect</button><br>
+    <button id="copyButton" onclick="copyHTML()">Copy HTML</button>
+</div>
+
+<div class="container" id="imageContainer">
+    <img class="image" id="image" alt="Your Image">
+    <div class="title" id="titleText"></div>
+</div>
+
+<script>
+    function setHoverEffect() {
+        var imageSource = document.getElementById('imageURL').value;
+        var boldText = document.getElementById('boldText').value;
+        var title = document.getElementById('title').value;
+
+        var imageElement = document.getElementById('image');
+        var titleElement = document.getElementById('titleText');
+
+        // Set image source
+        imageElement.src = imageSource;
+
+        // Set bold text
+        titleElement.innerHTML = '<b>' + boldText + '</b><br>' + title;
+    }
+
+    function copyHTML() {
+        // Remove input box div from the copied HTML
+        var inputBox = document.getElementById('inputBox');
+        inputBox.parentNode.removeChild(inputBox);
+        
+        var htmlCode = document.documentElement.outerHTML;
+        var textArea = document.createElement('textarea');
+        textArea.value = htmlCode;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        // Restore the input box after copying
+        document.body.appendChild(inputBox);
+
+        alert('HTML copied to clipboard!');
+    }
+</script>
+
+</body>
+</html>
