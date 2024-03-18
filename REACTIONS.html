@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <title>Article Emotions</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      font-size: 14px;
+      color: black;
+    }
+    h1 {
+      color: #333;
+    }
+    .emojis {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .emoji {
+      font-size: 3em; /* smaller size */
+      margin: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+    .emoji:hover {
+      transform: scale(1.2);
+    }
+    #statistics {
+      margin-top: 30px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1em; /* smaller font size */
+      color: black;
+    }
+    #statistics ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    #statistics li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let votes = {
+      happy: 0,
+      sad: 0,
+      love: 0,
+      angry: 0,
+      crying: 0
+    };
+
+    function addVote(emotion) {
+      votes[emotion]++;
+      // Show popup message
+      alert("Thank you for reacting. We will evaluate this article with your reaction.");
+      updateStatistics();
+    }
+
+    function updateStatistics() {
+      const statisticsElement = document.getElementById('statistics');
+      let statisticsText = "<p>Thank you for your reaction!</p>";
+      statisticsElement.innerHTML = statisticsText;
+    }
+  </script>
+  <p>How does this article make you feel?</p>
+  <div class="emojis">
+    <div class="emoji" title="Happy" onclick="addVote('happy')">&#128522;</div>
+    <div class="emoji" title="Sad" onclick="addVote('sad')">&#128532;</div>
+    <div class="emoji" title="Love" onclick="addVote('love')">&#128525;</div>
+    <div class="emoji" title="Angry" onclick="addVote('angry')">&#128545;</div>
+    <div class="emoji" title="Crying" onclick="addVote('crying')">&#128546;</div>
+  </div>
+  <div id="statistics"></div>
+</body>
+</html>
