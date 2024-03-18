@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <title>News Ticker</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            font-color: black;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            display: none;
+}
+         .emailForm {
+color: black }
+    </style>
+</head>
+<body>
+    <form id="emailForm" action="/action_page.php" class=emailForm>
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email">
+        <input type="submit">
+    </form>
+
+    <div id="popup" class="popup">
+        <p>Thank you for supporting us</p>
+    </div>
+
+    <script>
+        // Get the form and thank you popup element
+        var form = document.getElementById("emailForm");
+        var popup = document.getElementById("popup");
+
+        // Function to handle form submission
+        form.addEventListener("submit", function(event) {
+            // Prevent the default form submission
+            event.preventDefault();
+            
+            // Show the thank you popup
+            popup.style.display = "block";
+
+            // Reset the form after a delay (optional)
+            setTimeout(function() {
+                form.reset();
+                popup.style.display = "none";
+            }, 3000); // Change 3000 to the desired delay in milliseconds
+        });
+    </script>
+</body>
+</html>
